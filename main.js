@@ -34,7 +34,12 @@ L.control.scale({
 async function loadWind(url) {
     let response = await fetch(url);
     let jsondata = await response.json();
-    console.log(jsondata)
+    //console.log(jsondata[0].header.refTime);
+    //console.log(jsondata[0].header.forecastTime);
+    let forecastDate = new Date(jsondata[0].header.refTime);
+    forecastDate.setHours(forecastDate.getHours() + jsondata[0].header.forecastTime);
+    //console.log(forecastDate);
+
     L.velocityLayer({
         data: jsondata,
         lineWidth: 2,
